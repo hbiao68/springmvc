@@ -31,5 +31,38 @@
 		<property name="prefix" value="/WEB-INF/jsp/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
+	
+	<!-- 数据源 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+		<property name="url">
+			<!-- 
+			<value>jdbc:mysql://172.16.14.81:3306/myspring</value>
+			-->
+			<value>jdbc:mysql://localhost:3306/myspring</value> 
+		</property>
+		<property name="username">
+			<value>root</value>
+		</property>
+		<property name="password">
+			<value>admin</value>
+		</property>
+	</bean>
+
+	<!-- 指明操作数据库的配置文件位置 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation"
+			value="classpath:../config/mybatis/MyBatis-Configuration.xml"></property>
+	</bean>
+
+	<!-- 使用事务处理 -->
+	<bean id="tm"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<tx:annotation-driven transaction-manager="tm" />
 
 </beans>

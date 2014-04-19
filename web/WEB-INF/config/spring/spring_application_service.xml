@@ -4,5 +4,9 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+	<bean id="userService" class="hb.account.service.imp.UserServiceImp">
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+	
 	
 </beans>
